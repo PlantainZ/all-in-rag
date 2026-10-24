@@ -1,14 +1,15 @@
-# --- 环境初始化 (必须放在最前面) ---
+# --- 环境初始化引导 (必须放在文件最开头) ---
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent)) # 把 code/ 加入路径
-import env_setup # 这一行执行后，环境变量和路径就全部就绪了！
-# -----------------------------------
+sys.path.append(str(Path(__file__).resolve().parent.parent)) # 动态将 code/ 目录加入搜索路径
+import env_setup # 现在可以顺利找到了！
+# -----------------------------------------
 
 import os
 # hugging face镜像设置，如果国内环境无法使用启用该设置。
 # 下载的时候....千万....不要.....科学上网.........qaq
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+# os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+
 from dotenv import load_dotenv
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -57,11 +58,11 @@ prompt = ChatPromptTemplate.from_template("""请根据下面提供的上下文�
 
 # 使用 AIHubmix
 llm = ChatOpenAI(
-    model="glm-4.7-flash-free",
+    model=os.getenv("LLM_MODEL_ID"),
     temperature=0.7,
     max_tokens=4096,
-    api_key=os.getenv("DEEPSEEK_API_KEY"),
-    base_url="https://aihubmix.com/v1"
+    api_key=os.getenv("LLM_API_KEY"),
+    base_url=os.getenv("LLM_BASE_URL")
 )
 
 # llm = ChatOpenAI(
