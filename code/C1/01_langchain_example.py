@@ -1,6 +1,14 @@
+# --- 环境初始化 (必须放在最前面) ---
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent)) # 把 code/ 加入路径
+import env_setup # 这一行执行后，环境变量和路径就全部就绪了！
+# -----------------------------------
+
 import os
-# hugging face镜像设置，如果国内环境无法使用启用该设置
-# os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+# hugging face镜像设置，如果国内环境无法使用启用该设置。
+# 下载的时候....千万....不要.....科学上网.........qaq
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 from dotenv import load_dotenv
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
