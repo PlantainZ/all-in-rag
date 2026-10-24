@@ -71,3 +71,6 @@ rag/
 # LLM API keys
 *.key
 *.secret
+
+# 模型目录
+/models/
